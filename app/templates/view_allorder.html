@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block title %}Order History{% endblock %}
+
+{% block content %}
+    <div>
+        <h2>Order History</h2>
+        <a href="{{ url_for('menu.view_item') }}" class="back-btn">← Back to Menu</a>
+    </div>
+
+    {% if orders %}
+        <table>
+            <thead>
+                <tr>
+                    <th>Order Number</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for order in orders %}
+                <tr>
+                    <td class="order-id">{{loop.index}}</td>
+                    <td>
+                        <a href="{{ url_for('order.view_order', order_id=order.id) }}">View Receipt Details</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <div>
+            <p>You have not placed any orders yet.</p>
+        </div>
+    {% endif %}
+
+{% endblock %}

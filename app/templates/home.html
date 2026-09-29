@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block title %}Home - Order Food{% endblock %}
+
+{% block content %}
+    <div>
+        <span>Welcome to the Restaurant Portal</span>
+        <div>
+            <a href="{{ url_for('order.view_Allorder') }}">My Orders</a>
+        </div>
+    </div>
+    <div>
+        <h2>Available Menu Items</h2>
+        <form action="{{ url_for('order.order') }}" method="POST">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Select</th>
+                        <th>Item Name</th>
+                        <th>Price</th>
+                        <th>Quantity</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% if items %}
+                        {% for item in items %}
+                        <tr>
+                            <td><input type="checkbox" name="menu_items" value="{{ item.id }}"></td>
+                            <td>{{ item.name }}</td>
+                            <td>${{ "%.2f"|format(item.price) }}</td>
+                            <td><input type="number" name="quantity_{{ item.id }}" value="1" min="1"></td>
+                        </tr>
+                        {% endfor %}
+                    {% else %}
+                       <p>No items available</p>
+                    {% endif %}
+                </tbody>
+            </table>
+            <button type="submit">Order</button>
+        </form>
+    </div>
+{% endblock %}

@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block title %}View Order{% endblock %}
+
+{% block content %}
+    <div>
+        {% if order %}
+            <a href="{{ url_for('order.view_Allorder') }}">Back to All History Records</a>
+            <h2>Items Inside Order Registry</h2>
+            {% if order %}
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Item name</th>
+                            <th>Qauntity</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for line_item in order %}
+                        <tr>
+                            <td>{{line_item.menu_id}}</td>
+                            <td><strong>{{ line_item.qauntity }}x</strong></td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            {% else %}
+                <p>No relational line rows found assigned to this query block.</p>
+            {% endif %}
+        {% endif %}
+
+    </div>
+{% endblock %}
